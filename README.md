@@ -5,3 +5,4 @@ The github repository is used to keep track of versions
 
 ## Guide
 `index.html` is the login page
+`shop.php` is the shop page you go to after you log in
