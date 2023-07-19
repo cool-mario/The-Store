@@ -3,30 +3,27 @@ session_start();
 require_once "config.php";
 $_SESSION["uName"] = $_POST["userName"];
 $_SESSION["pass"] = $_POST["password"];
-var_dump($_POST);
+password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
+
+
+
+
 // Password checking
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-$sth = $dbh->prepare("SELECT * FROM `users` WHERE ");
+$sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
+$sth->bindValue(":enteredName",$_SESSION["uName"]);
 $sth->execute();
 $pass = $sth->fetch();
 
-password_hash($_SESSION["inputPass"], PASSWORD_DEFAULT);
-echo password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
-
-if(password_verify($_SESSION["inputPass"],$pass[0] )){
-  $_SESSION["user"] = (int)$_POST["trainer"];
+if(password_verify($_SESSION["pass"],$pass[0] )){
   echo "<p>logged in</p>";
 }
 else{
-  header("Location: https://atdpsites.berkeley.edu/achandra/2023_AIC/X11/signin.php");
-  exit;
+  // header("Location: login.php");
+  // exit;
   echo "<p>nmot right!</p>";
 }
 
-if(!isset($_SESSION["user"])){
-  header("Location: https://atdpsites.berkeley.edu/achandra/2023_AIC/X11/signin.php");
-  exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +66,10 @@ if(!isset($_SESSION["user"])){
       }
     ?>
     </table>
+
+  </body>
+</html>
+
 
   </body>
 </html>
