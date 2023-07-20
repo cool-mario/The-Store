@@ -42,3 +42,7 @@ th:hover, td:hover {
 td > form {
     text-align: center;
 }
+
+.hide {
+    display: none;
+}
