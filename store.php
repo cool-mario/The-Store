@@ -59,13 +59,26 @@ else {
         $sth = $dbh->prepare("SELECT * FROM items"); 
         $sth->execute();
         $items = $sth->fetchAll(); 
-        //   Cycling and inserting items into table   
+        //   Item Names
+        echo "<tr>";   
         foreach($items as $item){
-          echo "<tr>";
-          echo "<td>" . $item["name"] . "</td>";
-          echo "<td>  " . $item["price"] . "  </td>";
-          echo "</tr>";
+          echo "<td>  " . $item["name"] . "  </td>";
         }
+        echo "</tr>";
+        //   Item Descriptions
+        echo "<tr>";   
+        foreach($items as $item){
+          echo "<td>  " . $item["desc"] . "  </td>";
+        }
+        echo "</tr>";
+        //   Item Pricce
+        echo "<tr>";   
+        foreach($items as $item){
+          echo "<td>  " . $item["price"] . "  </td>";
+        }
+        echo "</tr>";
+
+
         
       }
       catch (PDOException $e) {
