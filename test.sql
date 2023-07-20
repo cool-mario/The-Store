@@ -1,3 +1,4 @@
+-- store
 CREATE TABLE IF NOT EXISTS `store` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` text,
@@ -10,7 +11,7 @@ INSERT INTO `store`
 VALUES
     ('Store 1','Lordran', 1);
 
-
+-- items
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int NOT NULL AUTO_INCREMENT,
   `storeID` int,
@@ -19,7 +20,6 @@ CREATE TABLE IF NOT EXISTS `items` (
   `desc` text,
   PRIMARY KEY (`id`)
 );
-
 INSERT INTO `items`
 	(`storeID`,`name`, `price`,`desc`)
 VALUES
@@ -29,6 +29,7 @@ VALUES
     (1, 'Warheads', 5, 'Not for recreational use'), 
     (1, 'Muffin Stumps', 5, 'Not for consumption');
 
+-- users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uName` text,
