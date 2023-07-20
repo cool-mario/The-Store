@@ -19,3 +19,7 @@ input, select {
 h1 {
     font-size: 250%;
 }
+.error {
+    background-color: #8a482b;
+    padding: 10px;
+}

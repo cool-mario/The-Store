@@ -16,16 +16,14 @@ $sth->execute();
 $pass = $sth->fetch();
 
 if (!$pass){
-  echo "<p>not right username!!!!!!!!!!!!!!!!!!!!!</p>";
+  header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
 else {
   if(password_verify($_SESSION["pass"],$pass[0])){
     echo "<p>logged in</p>";
   }
   else{
-    // header("Location: login.php");
-    // exit;
-    echo "<p>not right password!!!!!!!!!!!!!!!!!!</p>";
+    header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
   }
 }
 
