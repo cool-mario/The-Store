@@ -27,6 +27,9 @@ else {
   }
 }
 
+if(!isset($_SESSION["cart"])){
+  $_SESSION["cart"] = array();
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +84,10 @@ else {
         echo "<tr>";   
         foreach($items as $item){
           echo "<td>"; 
-          echo "<form>";
+          echo "<form action='cart.php' method='post'>";
+          echo "<select>";
+          echo "<option value='". $item["id"] ."' class='hide'>an option</option>";
+          echo "</select>";
           echo "<button type='submit'>Add to Cart</button>";
           echo "</form>";
           echo "</td>";
