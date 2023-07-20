@@ -13,6 +13,12 @@
             padding: 1.5% 4% 1.5% 4%;
             border-radius: 10px;
             line-height: 2;
+            margin-left: auto;
+            margin-right: auto;
+            width: 20vmax;
+        }
+        form > p, form > input {
+          font-size: 1.5vmin;
         }
     </style>
 </head>
