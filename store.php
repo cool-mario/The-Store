@@ -77,6 +77,16 @@ else {
           echo "<td>  " . $item["price"] . "  </td>";
         }
         echo "</tr>";
+        //   Button to add to cart
+        echo "<tr>";   
+        foreach($items as $item){
+          echo "<td>"; 
+          echo "<form>";
+          echo "<button type='submit'>Add to Cart</button>";
+          echo "</form>";
+          echo "</td>";
+        }
+        echo "</tr>";
 
 
         
