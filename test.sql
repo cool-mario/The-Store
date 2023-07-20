@@ -12,9 +12,12 @@ VALUES
 
 
 CREATE TABLE IF NOT EXISTS `items` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `storeID` int,
   `name` text,
-  `price` int
+  `price` int,
+  `desc` text,
+  PRIMARY KEY (`id`)
 );
 
 INSERT INTO `items`
@@ -27,9 +30,11 @@ VALUES
     (1, 'Muffin Stumps', 5, 'Not for consumption');
 
 CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `uName` text,
   `role` boolean,
-  `hashpass` text
+  `hashpass` text,
+  PRIMARY KEY (`id`)
 );
 INSERT INTO `users`
 	(`uName`,`role`,`hashpass`)
