@@ -85,8 +85,8 @@ if(!isset($_SESSION["cart"])){
         foreach($items as $item){
           echo "<td>"; 
           echo "<form action='cart.php' method='post'>";
-          echo "<select>";
-          echo "<option value='". $item["id"] ."' class='hide'>an option</option>";
+          echo "<select  class='hide' >";
+          echo "<option value='". $item["id"] ."'>an option</option>";
           echo "</select>";
           echo "<button type='submit'>Add to Cart</button>";
           echo "</form>";
