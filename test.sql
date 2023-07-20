@@ -18,13 +18,13 @@ CREATE TABLE IF NOT EXISTS `items` (
 );
 
 INSERT INTO `items`
-	(`storeID`,`name`, `price`)
+	(`storeID`,`name`, `price`,`desc`)
 VALUES
-    (1, 'Apples', 5),
-    (1, 'Mangoes', 5),
-    (1, 'Pencils', 5),
-    (1, 'Warheads', 5), 
-    (1, 'Muffin Stumps', 5);
+    (1, 'Apples', 5,'A normal apple. Very healthy'),
+    (1, 'Mangoes', 5, 'A very tasty mango!'),
+    (1, 'Pencils', 5, 'A very tasty pencil!'),
+    (1, 'Warheads', 5, 'Not for recreational use'), 
+    (1, 'Muffin Stumps', 5, 'Not for consumption');
 
 CREATE TABLE IF NOT EXISTS `users` (
   `uName` text,
