@@ -25,9 +25,9 @@ if (isset($_POST["buy"])){
     $itemID = $_POST["buy"];
 
     // add item to shopping cart
-    if (isset($_SESSION["cart"][$itemID])){
-        // create new item in cart
-        array_push($_SESSION["cart"], array($_POST["buy"] => 1));
+    if (empty($_SESSION["cart"][$itemID])){
+        // create NEW item in cart
+        $_SESSION["cart"][$itemID] = 1;
     } else {
         // increase amount of items 
         $_SESSION["cart"][$itemID]++;
@@ -37,6 +37,7 @@ if (isset($_POST["buy"])){
     header( "Location: store.php"); // go back to store
 
     echo "<h2>Added to your shopping cart!</h2>";
+    echo '<a href="store.php">Go back</a>';
 }
 
 ?>
