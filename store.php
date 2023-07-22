@@ -16,34 +16,39 @@ $sth->execute();
 $pass = $sth->fetch();
 
 if (!$pass){
-  header( "Location: login.php?m=name"); // go back to sign in if name is wrong
+    header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
 else {
-  if(password_verify($_SESSION["pass"],$pass[0])){
-    echo "<p>logged in</p>";
-  }
-  else{
-    header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
-  }
+    if(password_verify($_SESSION["pass"],$pass[0])){
+        echo "<p>logged in</p>";
+    }
+    else{
+        header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+    }
 }
-
+// create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
   $_SESSION["cart"] = array();
 }
 ?>
 
 <!DOCTYPE html>
-<html  lang=en-US>
+<html lang=en-us>
 <head>
-  <title>  Store Page  </title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <link rel="stylesheet" href="style.css">
-  <style>
+    <title>  Store Page  </title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <!-- this makes it work on different screen sizes like a phone -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <style>
     body{
         text-align: center;
     }
     #products table, th, td{
         /* border: 2px solid black; */
+    }
+    td, td > * {
+        text-align: center;
     }
 
   </style>
@@ -53,6 +58,7 @@ if(!isset($_SESSION["cart"])){
 
     <?php
     echo "<h2>Welcome {$_SESSION['uName']}!!!</h2>";
+    var_dump($_SESSION["cart"]);
     ?>
     <!-- List of products -->
     <table id="products">
@@ -85,7 +91,7 @@ if(!isset($_SESSION["cart"])){
         foreach($items as $item){
           echo "<td>"; 
           echo "<form action='cart.php' method='post'>";
-          echo "<select  class='hide' >";
+          echo "<select class='hide' name='buy'>";
           echo "<option value='". $item["id"] ."'>an option</option>";
           echo "</select>";
           echo "<button type='submit'>Add to Cart</button>";
