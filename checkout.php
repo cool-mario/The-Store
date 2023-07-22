@@ -1,4 +1,9 @@
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+</script>
+<script src="script.js"></script>
 <style>
     body{
         text-align:center;
@@ -6,13 +11,16 @@
     table{
         margin: 0px auto;
     }
+    .hide{
+        display:none;
+    }
 </style>
 <h1>Checkout</h1>
 <p>Price Summary</p>
 <table>
 <?php
 session_start();
-require_once "config.php";
+require_once "config.php";  
         
 // echo "<pre>";
 // var_dump($_SESSION["cart"]);
@@ -40,3 +48,9 @@ foreach($_SESSION["cart"] as $itemID => $amount){
 <?php
 echo "<p>Your total cart total is $" . $cost .  "</p>";
 ?>
+<a href="store.php">Continue Shopping</a>
+<br>
+<button id="paymentB">Continue Checkout</button>
+<div id="payment" class="hide">
+    <p>Placeholder</p>
+</div>
