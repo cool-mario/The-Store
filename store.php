@@ -1,9 +1,16 @@
 <?php
 session_start();
 require_once "config.php";
-$_SESSION["uName"] = $_POST["userName"];
-$_SESSION["pass"] = $_POST["password"];
-password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
+
+//fixes a bug
+if (isset($_POST["userName"])){
+    $_SESSION["uName"] = $_POST["userName"];
+}
+if (isset($_POST["password"])){
+    $_SESSION["pass"] = $_POST["password"];
+}
+
+// password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
 
 
 
@@ -16,7 +23,10 @@ $sth->execute();
 $pass = $sth->fetch();
 
 if (!$pass){
-    header( "Location: login.php?m=name"); // go back to sign in if name is wrong
+    echo $_SESSION["uName"];
+    echo "<br>";
+    var_dump($_SESSION);
+    // header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
 else {
     if(password_verify($_SESSION["pass"],$pass[0])){
@@ -58,7 +68,6 @@ if(!isset($_SESSION["cart"])){
 
     <?php
     echo "<h2>Welcome {$_SESSION['uName']}!!!</h2>";
-    var_dump($_SESSION["cart"]);
     ?>
     <!-- List of products -->
     <table id="products">
@@ -80,10 +89,10 @@ if(!isset($_SESSION["cart"])){
           echo "<td>  " . $item["desc"] . "  </td>";
         }
         echo "</tr>";
-        //   Item Pricce
+        //   Item Price
         echo "<tr>";   
         foreach($items as $item){
-          echo "<td>  " . $item["price"] . "  </td>";
+          echo "<td>  " . $item["price"] . "$  </td>";
         }
         echo "</tr>";
         //   Button to add to cart
@@ -100,7 +109,6 @@ if(!isset($_SESSION["cart"])){
         }
         echo "</tr>";
 
-
         
       }
       catch (PDOException $e) {
@@ -109,6 +117,31 @@ if(!isset($_SESSION["cart"])){
       }
     ?>
     </table>
+
+
+    <h2>Shopping cart:</h2>
+    <?php
+
+        
+    echo "<pre>";
+    var_dump($_SESSION["cart"]);
+    echo "</pre>";
+
+    echo "<table>";
+    echo "<tr><th>Item</th><th>Amount</th></tr>";
+    foreach ($_SESSION["cart"] as $itemID => $amount){
+        echo "<tr>";
+        // get the name of the item from the id. it just works....
+        echo "<td>{$items[$itemID-1]['name']}</td>";
+        echo "<td>{$amount}</td>";
+        echo "</tr>";
+    }  
+    echo "</table>";
+
+    ?>
+
+
+    <a href="signout.php">Sign out</a>
 
   </body>
 </html>
