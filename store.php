@@ -30,7 +30,7 @@ if (!$pass){
 }
 else {
     if(password_verify($_SESSION["pass"],$pass[0])){
-        echo "<p>logged in</p>";
+        // echo "<p>logged in</p>";
     }
     else{
         header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
@@ -59,6 +59,10 @@ if(!isset($_SESSION["cart"])){
     }
     td, td > * {
         text-align: center;
+    }
+    button {
+        /* nice color */
+        background-color:cadetblue; 
     }
 
   </style>
@@ -123,9 +127,9 @@ if(!isset($_SESSION["cart"])){
     <?php
 
         
-    echo "<pre>";
-    var_dump($_SESSION["cart"]);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($_SESSION["cart"]);
+    // echo "</pre>";
 
     echo "<table>";
     echo "<tr><th>Item</th><th>Amount</th></tr>";
@@ -140,8 +144,8 @@ if(!isset($_SESSION["cart"])){
 
     ?>
 
-
-    <a href="signout.php">Sign out</a>
+    <br><br>
+    <a href="signout.php"><button>Sign out</button></a>
 
   </body>
 </html>
