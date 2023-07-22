@@ -17,8 +17,8 @@
             margin-right: auto;
             width: 20vmax;
         }
-        form > p, form > input {
-          font-size: 1.5vmin;
+        form > p, form > input, form > p {
+          font-size: 2vmin;
         }
     </style>
 </head>
@@ -47,7 +47,6 @@
               }
           ?>
           
-
 
       </form>
   </body>
