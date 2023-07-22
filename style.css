@@ -39,10 +39,6 @@ th:hover, td:hover {
     background-color: rgb(59, 100, 110);
 }
 
-td > form {
-    text-align: center;
-}
-
 .hide {
     display: none;
 }
