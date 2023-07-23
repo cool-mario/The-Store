@@ -64,6 +64,11 @@ if(!isset($_SESSION["cart"])){
         /* nice color */
         background-color:cadetblue; 
     }
+    #checkout {
+        font-size: 170%;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
   </style>
 </head>
@@ -144,6 +149,8 @@ if(!isset($_SESSION["cart"])){
 
     ?>
 
+    <br><br>
+    <a href="checkout.php"><button id="checkout">Check out!!</button></a>
     <br><br>
     <a href="signout.php"><button>Sign out</button></a>
 
