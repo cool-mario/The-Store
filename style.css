@@ -12,7 +12,7 @@ a:any-link {
 a:any-link:hover{
     color:rgb(129, 182, 255);
 }
-input, select {
+input, select, textarea {
     color:peachpuff ;
     background-color: darkslateblue;
 }
