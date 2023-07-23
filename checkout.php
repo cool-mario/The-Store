@@ -52,5 +52,37 @@ echo "<p>Your total cart total is $" . $cost .  "</p>";
 <br>
 <button id="paymentB">Continue Checkout</button>
 <div id="payment" class="hide">
-    <p>Placeholder</p>
+    <form action="" method="post">
+    <!-- Adress -->
+    <p>Step 1</p>
+    <div>
+        <label for="ad">Enter your shipping address</label>
+        <br>
+        <input id="ad" name="address" type="text"></input>
+        <br>
+        <label for="z">Enter your zip code</label>
+        <br>
+        <input id="z" name="zip" type="text"></input>
+    </div>
+    <!-- C Card -->
+    <p>Step 2</p>
+    <div>
+        <label for="cCard">Enter your credit card number</label>
+        <br>
+        <input id="cCard" name="card" type="text"></input>
+        <br>
+        <label for="cvcC">Enter your CVC</label>
+        <br>
+        <input id="cvcC" name="cvc" type="text"></input>
+    </div>
+    <!-- Delivery -->
+    <p>Step 3</p>
+    <div>
+        <label for="del">Special delivery instructions</label>
+        <br>
+        <textarea id="del" name="card"></textarea>
+    </div>
+    <br>
+    <button type="submit">Submit</button>
+</form>
 </div>
