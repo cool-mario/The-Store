@@ -49,5 +49,7 @@
           
 
       </form>
+    <br>
+    <a href="signup.php">Register a new user</a>
   </body>
 </html>
