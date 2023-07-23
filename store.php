@@ -1,8 +1,36 @@
 <?php
 session_start();
 require_once "config.php";
-
+$dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 //fixes a bug
+
+if (isset($_POST["inputName"])){
+  $_SESSION["iName"] = $_POST["inputName"];
+  $_SESSION["iPass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
+
+  $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+  $sth->bindValue(":enteredName",$_SESSION["iName"]);
+  $sth->execute();
+  $checkName = $sth->fetch();
+  echo $_SESSION["iName"];
+  echo "<br>";
+  if($checkName == ""){
+// Add this new user to the database
+    $sth = $dbh->prepare("INSERT INTO `users` (`uName`,`role`,`hashpass`)  VALUES( :user, :roleBool, :pass)");
+
+    $sth->bindValue(":user",$_SESSION["iName"]);
+    $sth->bindValue(":roleBool",0);
+    $sth->bindValue(":pass",$_SESSION["iPass"]);
+    $sth->execute();
+    echo "<p>Added to user list</p>";
+  }
+}
+else{
+
+
+
+
+
 if (isset($_POST["userName"])){
     $_SESSION["uName"] = $_POST["userName"];
 }
@@ -16,16 +44,16 @@ if (isset($_POST["password"])){
 
 
 // Password checking
-$dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+
 $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
 $sth->bindValue(":enteredName",$_SESSION["uName"]);
 $sth->execute();
 $pass = $sth->fetch();
 
 if (!$pass){
-    echo $_SESSION["uName"];
-    echo "<br>";
-    var_dump($_SESSION);
+    // echo $_SESSION["uName"];
+    // echo "<br>";
+    // var_dump($_SESSION);
     // header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
 else {
@@ -36,10 +64,12 @@ else {
         header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
     }
 }
+}
 // create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
   $_SESSION["cart"] = array();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -63,11 +93,6 @@ if(!isset($_SESSION["cart"])){
     button {
         /* nice color */
         background-color:cadetblue; 
-    }
-    #checkout {
-        font-size: 170%;
-        padding: 10px;
-        border-radius: 10px;
     }
 
   </style>
@@ -148,9 +173,8 @@ if(!isset($_SESSION["cart"])){
     echo "</table>";
 
     ?>
-
-    <br><br>
-    <a href="checkout.php"><button id="checkout">Check out!!</button></a>
+     <br><br>
+    <a href="checkout.php"><button>Check Out</button></a>
     <br><br>
     <a href="signout.php"><button>Sign out</button></a>
 
