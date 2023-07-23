@@ -26,6 +26,11 @@ require_once "config.php";
         .hide{
             display:none;
         }
+        #payment > form > div {
+            border: 3px solid darkblue;
+            padding:2%;
+            width: 30vmax;
+        }
     </style>
 </head>
 <body>
