@@ -27,9 +27,12 @@ require_once "config.php";
             display:none;
         }
         #payment > form > div {
-            border: 3px solid darkblue;
+            border: 3px solid rgb(26 107 127 / 72%);
             padding:2%;
-            width: 30vmax;
+            width:  30vmax;
+            margin-left:auto;
+            margin-right:auto;
+            border-radius:15px;
         }
     </style>
 </head>
