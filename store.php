@@ -110,7 +110,6 @@ $sth->bindValue(":userID",$_SESSION["userID"]);
 $sth->execute();
 $cartItemID = $sth->fetchAll(); // i spent 30 minutes being confused and then i realize It was fetch() and not fetchAll()
 
-var_dump($cartItemID);
 
 // create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
