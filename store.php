@@ -51,45 +51,41 @@ else{
     $sth->execute();
     $admin = $sth->fetch();
     if($admin == 1){
-      header( "Location: admin.php");
+        header( "Location: admin.php");
     }
     else{
+        // Password checking
+        $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
+        $sth->bindValue(":enteredName",$_SESSION["uName"]);
+        $sth->execute();
+        $pass = $sth->fetch();
 
+        // username checking
+        $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+        $sth->bindValue(":enteredName",$_SESSION["uName"]);
+        $sth->execute();
+        $checkName1 = $sth->fetch();
 
-
-    // Password checking
-    $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
-    $sth->bindValue(":enteredName",$_SESSION["uName"]);
-    $sth->execute();
-    $pass = $sth->fetch();
-
-    // username checking
-    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
-    $sth->bindValue(":enteredName",$_SESSION["uName"]);
-    $sth->execute();
-    $checkName1 = $sth->fetch();
-
-    // if the username and session username don't exist, go to login
-    if (empty($checkName1) && !isset($_SESSION["uName"])){
-        header( "Location: login.php?m=name"); // go back to sign in if name is wrong
-    }
-
-    // check if post doesn't exist, then use session's password
-    if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
-        if(!password_verify($_SESSION["pass"],$pass[0])){
-            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+        // if the username and session username don't exist, go to login
+        if (empty($checkName1) && !isset($_SESSION["uName"])){
+            header( "Location: login.php?m=name"); // go back to sign in if name is wrong
         }
-        // if just the post password exists
-    } elseif (isset($_POST["password"])){
-        if(!password_verify($_POST["password"],$pass[0])){
-            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
-        }
-    }
-        
 
-    if($checkName1 == ""){
-    header( "Location: login.php?m=name");
-    }
+        // check if post doesn't exist, then use session's password
+        if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
+            if(!password_verify($_SESSION["pass"],$pass[0])){
+                header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+            }
+            // if just the post password exists
+        } elseif (isset($_POST["password"])){
+            if(!password_verify($_POST["password"],$pass[0])){
+                header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+            }
+        }
+            
+        if($checkName1 == ""){
+            header( "Location: login.php?m=name");
+        }
   }
 
 }
@@ -129,24 +125,25 @@ if(!isset($_SESSION["cart"])){
         border-radius: 10px;
     }
     .dropbtn {
-    background-color: rgb(129, 182, 255);
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+        background-color: rgb(129, 182, 255);
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
     }
 
     .dropdown {
-    position: relative;
-    display: inline-block;
+        position: relative;
+        display: inline-block;
     }
 
     .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    z-index: 1;
+        display: none;
+        position: absolute;
+        background-color: #4693a2;
+        min-width: 160px;
+        z-index: 1;
+        margin-left: -138px
     }
 
     .dropdown:hover .dropdown-content {
