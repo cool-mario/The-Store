@@ -100,12 +100,7 @@ if(!isset($_SESSION["cart"])){
 }
 
 ?>
-<style>
-  img{
-    width:120px;
-    height:100px;
-}
-</style>
+
 <!DOCTYPE html>
 <html lang=en-us>
 <head>
@@ -133,37 +128,44 @@ if(!isset($_SESSION["cart"])){
         padding: 10px;
         border-radius: 10px;
     }
-.dropbtn {
-  background-color: rgb(129, 182, 255);
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
+    .dropbtn {
+    background-color: rgb(129, 182, 255);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  z-index: 1;
-}
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    z-index: 1;
+    }
 
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-.dropdown:hover .dropdown-content {display: block;}
+    .dropdown:hover .dropbtn {
+        background-color: rgb(59 150 200 / 72%);
+    }
 
-.dropdown:hover .dropbtn {background-color: rgb(59 150 200 / 72%);}
+    .dropdown{
+        /* goes to the right!! */
+        float:right; 
+    }
 
-.dropdown{
+    img{
+        width:120px;
+    }
 
-  float:right;
-
-}
 </style>
 
 <?php
