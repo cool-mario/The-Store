@@ -75,10 +75,12 @@ if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
 if($checkName1 == ""){
   header( "Location: login.php?m=name");
 }
+
+}
+
 // create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
-  $_SESSION["cart"] = array();
-}
+    $_SESSION["cart"] = array();
 }
 
 ?>
