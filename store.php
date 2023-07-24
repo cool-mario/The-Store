@@ -90,9 +90,44 @@ else{
 
 }
 
+
+
+
+// after everything is verified save user ID into session
+$sth = $dbh->prepare("SELECT id FROM `users` WHERE uName = :enteredName");
+$sth->bindValue(":enteredName",$_SESSION["uName"]);
+$sth->execute();
+$userID = $sth->fetch();
+$_SESSION["userID"] = $userID["id"];
+
+// if the user has items saved in cart database, add it into session
+$sth = $dbh->prepare("SELECT cart.item_id FROM `cart` 
+                      JOIN `users` ON cart.user_id = users.id 
+                      JOIN `items` ON cart.item_id = items.id 
+                      WHERE cart.user_id = :userID
+                    "); // get all items own by user. this took me way tooo long
+$sth->bindValue(":userID",$_SESSION["userID"]);
+$sth->execute();
+$cartItemID = $sth->fetchAll(); // i spent 30 minutes being confused and then i realize It was fetch() and not fetchAll()
+
+var_dump($cartItemID);
+
 // create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
     $_SESSION["cart"] = array();
+}
+
+// add stuff from sql to session!
+foreach ($cartItemID as $array){
+    $itemID = $array["item_id"];
+    // add item to shopping cart
+    if (!isset($_SESSION["cart"][$itemID]) || empty($_SESSION["cart"][$itemID])){
+        // create NEW item in cart
+        $_SESSION["cart"][$itemID] = 1;
+    } else {
+        // increase amount of items 
+        $_SESSION["cart"][$itemID]++;
+    }
 }
 
 ?>
