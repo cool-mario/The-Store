@@ -122,12 +122,73 @@ if(!isset($_SESSION["cart"])){
         padding: 10px;
         border-radius: 10px;
     }
+.dropbtn {
+  background-color: rgb(129, 182, 255);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
 
-  </style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: rgb(59 150 200 / 72%);}
+
+.dropdown{
+
+  float:right;
+
+}
+</style>
+
+<?php
+$sth = $dbh->prepare("SELECT * FROM items"); 
+$sth->execute();
+$items = $sth->fetchAll(); 
+?>
+
 </head>
   <body>
-    <h1>Store Home Page</h1>
+      <!-- Start of Cart -->
+    <div class="dropdown">
+    <button class="dropbtn">Dropdown</button>
+    <div class="dropdown-content">
+    <?php
 
+        
+    // echo "<pre>";
+    // var_dump($_SESSION["cart"]);
+    // echo "</pre>";
+
+    echo "<table>";
+    echo "<tr><th>Item</th><th>Amount</th></tr>";
+    foreach ($_SESSION["cart"] as $itemID => $amount){
+        echo "<tr>";
+        // get the name of the item from the id. it just works....
+        echo "<td>{$items[$itemID-1]['name']}</td>";
+        echo "<td>{$amount}</td>";
+        echo "</tr>";
+    }  
+    echo "</table>";
+    ?>
+    </div>
+    </div>
+  <!-- End of Cart -->
+  <h1>Store Home Page</h1>
     <?php
     if(isset($_SESSION['uName'])){
     echo "<h2>Welcome {$_SESSION['uName']}!!!</h2>";
@@ -138,9 +199,7 @@ if(!isset($_SESSION["cart"])){
     <?php
     try {
         // Getting PKM
-        $sth = $dbh->prepare("SELECT * FROM items"); 
-        $sth->execute();
-        $items = $sth->fetchAll(); 
+
         //   Item Names
         echo "<tr>";   
         foreach($items as $item){
@@ -188,27 +247,6 @@ if(!isset($_SESSION["cart"])){
     ?>
     </table>
 
-
-    <h2>Shopping cart:</h2>
-    <?php
-
-        
-    // echo "<pre>";
-    // var_dump($_SESSION["cart"]);
-    // echo "</pre>";
-
-    echo "<table>";
-    echo "<tr><th>Item</th><th>Amount</th></tr>";
-    foreach ($_SESSION["cart"] as $itemID => $amount){
-        echo "<tr>";
-        // get the name of the item from the id. it just works....
-        echo "<td>{$items[$itemID-1]['name']}</td>";
-        echo "<td>{$amount}</td>";
-        echo "</tr>";
-    }  
-    echo "</table>";
-
-    ?>
     <br><br>
     <a href="checkout.php"><button id="checkout">Check out!!</button></a>
     <br><br>
