@@ -67,16 +67,12 @@ else{
     // check if post doesn't exist, then use session's password
     if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
         if(!password_verify($_SESSION["pass"],$pass[0])){
-            // header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
-            var_dump($_SESSION["pass"]);
-            echo "<br>";
-            var_dump($pass);
-            header( "refresh:5;url=login.php?m=pass"); // go back to sign in if password is wrong
+            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
         }
         // if just the post password exists
     } elseif (isset($_POST["password"])){
         if(!password_verify($_POST["password"],$pass[0])){
-            // header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
         }
     }
         
