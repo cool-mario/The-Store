@@ -112,22 +112,24 @@ $cartItemID = $sth->fetchAll(); // i spent 30 minutes being confused and then i 
 
 
 // create cart if it doesn't exist
-if(!isset($_SESSION["cart"])){
+if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
     $_SESSION["cart"] = array();
-}
 
-// add stuff from sql to session!
-foreach ($cartItemID as $array){
-    $itemID = $array["item_id"];
-    // add item to shopping cart
-    if (!isset($_SESSION["cart"][$itemID]) || empty($_SESSION["cart"][$itemID])){
-        // create NEW item in cart
-        $_SESSION["cart"][$itemID] = 1;
-    } else {
-        // increase amount of items 
-        $_SESSION["cart"][$itemID]++;
+    // add stuff from sql to session!
+    foreach ($cartItemID as $array){
+        $itemID = $array["item_id"];
+        // add item to shopping cart
+        if (!isset($_SESSION["cart"][$itemID]) || empty($_SESSION["cart"][$itemID])){
+            // create NEW item in cart
+            $_SESSION["cart"][$itemID] = 1;
+        } else {
+            // increase amount of items 
+            $_SESSION["cart"][$itemID]++;
+        }
     }
 }
+
+
 
 ?>
 
