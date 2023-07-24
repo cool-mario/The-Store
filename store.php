@@ -34,6 +34,9 @@ else{
 if (isset($_POST["userName"])){
     $_SESSION["uName"] = $_POST["userName"];
 }
+else{
+  header( "Location: login.php?m=name");
+}
 if (isset($_POST["password"])){
     $_SESSION["pass"] = $_POST["password"];
 }
@@ -50,24 +53,32 @@ $sth->bindValue(":enteredName",$_SESSION["uName"]);
 $sth->execute();
 $pass = $sth->fetch();
 
+$sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+$sth->bindValue(":enteredName",$_SESSION["uName"]);
+$sth->execute();
+$checkName1 = $sth->fetch();
+
 if (!$pass){
-    // echo $_SESSION["uName"];
-    // echo "<br>";
-    // var_dump($_SESSION);
-    // header( "Location: login.php?m=name"); // go back to sign in if name is wrong
+    echo $_SESSION["uName"];
+    echo "<br>";
+    var_dump($_SESSION);
+    header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
 else {
     if(password_verify($_SESSION["pass"],$pass[0])){
-        // echo "<p>logged in</p>";
+        echo "<p>logged in</p>";
     }
     else{
         header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
     }
 }
+if($checkName1 == ""){
+  header( "Location: login.php?m=name");
 }
 // create cart if it doesn't exist
 if(!isset($_SESSION["cart"])){
   $_SESSION["cart"] = array();
+}
 }
 
 ?>
@@ -101,7 +112,9 @@ if(!isset($_SESSION["cart"])){
     <h1>Store Home Page</h1>
 
     <?php
+    if(isset($_SESSION['uName'])){
     echo "<h2>Welcome {$_SESSION['uName']}!!!</h2>";
+    }
     ?>
     <!-- List of products -->
     <table id="products">
