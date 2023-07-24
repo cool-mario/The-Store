@@ -2,28 +2,29 @@
 session_start();
 require_once "config.php";
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-//fixes a bug
+//fixes a bug (idk bro)
 
 if (isset($_POST["inputName"])){
-  $_SESSION["iName"] = $_POST["inputName"];
-  $_SESSION["iPass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
+    $_SESSION["iName"] = $_POST["inputName"];
+    $_SESSION["iPass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
 
-  $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
-  $sth->bindValue(":enteredName",$_SESSION["iName"]);
-  $sth->execute();
-  $checkName = $sth->fetch();
-  echo $_SESSION["iName"];
-  echo "<br>";
-  if($checkName == ""){
-// Add this new user to the database
-    $sth = $dbh->prepare("INSERT INTO `users` (`uName`,`role`,`hashpass`)  VALUES( :user, :roleBool, :pass)");
-
-    $sth->bindValue(":user",$_SESSION["iName"]);
-    $sth->bindValue(":roleBool",0);
-    $sth->bindValue(":pass",$_SESSION["iPass"]);
+    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["iName"]);
     $sth->execute();
-    echo "<p>Added to user list</p>";
-  }
+    $checkName = $sth->fetch();
+    echo $_SESSION["iName"];
+    echo "<br>";
+    // if name does not exist
+    if($checkName == ""){
+        // Add this new user to the database
+        $sth = $dbh->prepare("INSERT INTO `users` (`uName`,`role`,`hashpass`)  VALUES( :user, :roleBool, :pass)");
+
+        $sth->bindValue(":user",$_SESSION["iName"]);
+        $sth->bindValue(":roleBool",0);
+        $sth->bindValue(":pass",$_SESSION["iPass"]);
+        $sth->execute();
+        echo "<p>Added to user list</p>";
+    }
 }
 else{
 
@@ -35,7 +36,14 @@ if (isset($_POST["userName"])){
     $_SESSION["uName"] = $_POST["userName"];
 }
 if (isset($_POST["password"])){
-    $_SESSION["pass"] = $_POST["password"];
+    $_SESSION["pass"] = password_hash($_POST["password"], PASSWORD_DEFAULT);
+}
+// save user registering post into in session if it exists
+if (isset($_POST["inputName"])){
+    $_SESSION["uName"] = $_POST["inputName"];
+}
+if (isset($_POST["inputPass"])){
+    $_SESSION["pass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
 }
 
 // password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
