@@ -34,6 +34,7 @@ if (isset($_POST["inputName"])){
         $_SESSION["pass"] = $_POST["inputPass"];
     }
 }
+
 // if the user didn't register and is logging in
 else{
 
@@ -44,6 +45,15 @@ else{
     if (isset($_POST["password"])){
         $_SESSION["pass"] = $_POST["password"];
     }
+    // Checking if they are an admin 
+    $sth = $dbh->prepare("SELECT `role` FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
+    $sth->execute();
+    $admin = $sth->fetch();
+    if($admin == 1){
+      header( "Location: admin.php");
+    }
+    else{
 
 
 
@@ -80,6 +90,7 @@ else{
     if($checkName1 == ""){
     header( "Location: login.php?m=name");
     }
+  }
 
 }
 
@@ -254,4 +265,3 @@ $items = $sth->fetchAll();
 
   </body>
 </html>
-
