@@ -18,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `items` (
     `name` text,
     `price` int,
     `desc` text,
+    `img` text,
     PRIMARY KEY (`id`)
 );
 INSERT INTO `items`
-	  (`storeID`,`name`, `price`,`desc`)
+(`storeID`,`name`, `price`,`desc`,`img`)
 VALUES
     (1, 'Apples', 3,'A normal apple. Very healthy','apple2.png'),
     (1, 'Mangoes', 5, 'A very tasty mango!','mango.png'),
@@ -42,3 +43,11 @@ INSERT INTO `users`
 VALUES
     ('testAdmin','1','$2y$10$QhCPlzi9.DndB2UDn3B7NusCvMsm2DcPY6VQO8BaGuCdc8iobEEM6'),
     ('testUser','0','$2y$10$QhCPlzi9.DndB2UDn3B7NusCvMsm2DcPY6VQO8BaGuCdc8iobEEM6');
+
+-- cart
+CREATE TABLE IF NOT EXISTS `cart` (
+	`id` int NOT NULL AUTO_INCREMENT, 
+	`user_id` int,
+	`item_id` int,
+	PRIMARY KEY (`id`)
+);
