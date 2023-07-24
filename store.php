@@ -5,23 +5,23 @@ $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
 // if the user registered
 if (isset($_POST["inputName"])){
-    $_SESSION["iName"] = $_POST["inputName"];
-    $_SESSION["iPass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
+    $_SESSION["uName"] = $_POST["inputName"];
+    $_SESSION["pass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
 
     $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
-    $sth->bindValue(":enteredName",$_SESSION["iName"]);
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
     $sth->execute();
     $checkName = $sth->fetch();
-    echo $_SESSION["iName"];
+    echo $_SESSION["uName"];
     echo "<br>";
     // if name does not exist
     if($checkName == ""){
         // Add this new user to the database
         $sth = $dbh->prepare("INSERT INTO `users` (`uName`,`role`,`hashpass`)  VALUES( :user, :roleBool, :pass)");
 
-        $sth->bindValue(":user",$_SESSION["iName"]);
+        $sth->bindValue(":user",$_SESSION["uName"]);
         $sth->bindValue(":roleBool",0);
-        $sth->bindValue(":pass",$_SESSION["iPass"]);
+        $sth->bindValue(":pass",$_SESSION["pass"]);
         $sth->execute();
         echo "<p>Added to user list</p>";
     }
