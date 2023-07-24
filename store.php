@@ -165,7 +165,7 @@ $items = $sth->fetchAll();
   <body>
       <!-- Start of Cart -->
     <div class="dropdown">
-    <button class="dropbtn">Dropdown</button>
+    <button class="dropbtn">Cart</button>
     <div class="dropdown-content">
     <?php
 
