@@ -2,8 +2,8 @@
 session_start();
 require_once "config.php";
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-//fixes a bug (idk bro)
 
+// if the user registered
 if (isset($_POST["inputName"])){
     $_SESSION["iName"] = $_POST["inputName"];
     $_SESSION["iPass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
@@ -25,64 +25,65 @@ if (isset($_POST["inputName"])){
         $sth->execute();
         echo "<p>Added to user list</p>";
     }
+
+    // save user registering post into in session if it exists
+    if (isset($_POST["inputName"])){
+        $_SESSION["uName"] = $_POST["inputName"];
+    }
+    if (isset($_POST["inputPass"])){ // don't password hash this! it's mean to be the passwrod string
+        $_SESSION["pass"] = $_POST["inputPass"];
+    }
 }
+// if the user didn't register and is logging in
 else{
 
-
-
-
-// save post into in session if it exists
-if (isset($_POST["userName"])){
-    $_SESSION["uName"] = $_POST["userName"];
-}
-if (isset($_POST["password"])){
-    $_SESSION["pass"] = password_hash($_POST["password"], PASSWORD_DEFAULT);
-}
-// save user registering post into in session if it exists
-if (isset($_POST["inputName"])){
-    $_SESSION["uName"] = $_POST["inputName"];
-}
-if (isset($_POST["inputPass"])){
-    $_SESSION["pass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
-}
-
-// password_hash($_SESSION["pass"], PASSWORD_DEFAULT);
-
-
-
-// Password checking
-$sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
-$sth->bindValue(":enteredName",$_SESSION["uName"]);
-$sth->execute();
-$pass = $sth->fetch();
-
-// username checking
-$sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
-$sth->bindValue(":enteredName",$_SESSION["uName"]);
-$sth->execute();
-$checkName1 = $sth->fetch();
-
-// if the username and session username don't exist, go to login
-if (empty($checkName1) && !isset($_SESSION["uName"])){
-    header( "Location: login.php?m=name"); // go back to sign in if name is wrong
-}
-
-// check if post doesn't exist, then use session's password
-if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
-    if(!password_verify($_SESSION["pass"],$pass[0])){
-        header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+    // save post into in session if it exists
+    if (isset($_POST["userName"])){
+        $_SESSION["uName"] = $_POST["userName"];
     }
-// if just the post password exists
-} elseif (isset($_POST["password"])){
-    if(!password_verify($_POST["password"],$pass[0])){
-        header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+    if (isset($_POST["password"])){
+        $_SESSION["pass"] = $_POST["password"];
     }
-}
-    
 
-if($checkName1 == ""){
-  header( "Location: login.php?m=name");
-}
+
+
+    // Password checking
+    $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
+    $sth->execute();
+    $pass = $sth->fetch();
+
+    // username checking
+    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
+    $sth->execute();
+    $checkName1 = $sth->fetch();
+
+    // if the username and session username don't exist, go to login
+    if (empty($checkName1) && !isset($_SESSION["uName"])){
+        header( "Location: login.php?m=name"); // go back to sign in if name is wrong
+    }
+
+    // check if post doesn't exist, then use session's password
+    if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
+        if(!password_verify($_SESSION["pass"],$pass[0])){
+            // header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+            var_dump($_SESSION["pass"]);
+            echo "<br>";
+            var_dump($pass);
+            header( "refresh:5;url=login.php?m=pass"); // go back to sign in if password is wrong
+        }
+        // if just the post password exists
+    } elseif (isset($_POST["password"])){
+        if(!password_verify($_POST["password"],$pass[0])){
+            // header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
+        }
+    }
+        
+
+    if($checkName1 == ""){
+    header( "Location: login.php?m=name");
+    }
 
 }
 
