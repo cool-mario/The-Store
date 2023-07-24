@@ -30,12 +30,9 @@ else{
 
 
 
-
+// save post into in session if it exists
 if (isset($_POST["userName"])){
     $_SESSION["uName"] = $_POST["userName"];
-}
-else{
-  header( "Location: login.php?m=name");
 }
 if (isset($_POST["password"])){
     $_SESSION["pass"] = $_POST["password"];
@@ -45,33 +42,36 @@ if (isset($_POST["password"])){
 
 
 
-
 // Password checking
-
 $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
 $sth->bindValue(":enteredName",$_SESSION["uName"]);
 $sth->execute();
 $pass = $sth->fetch();
 
+// username checking
 $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
 $sth->bindValue(":enteredName",$_SESSION["uName"]);
 $sth->execute();
 $checkName1 = $sth->fetch();
 
-if (!$pass){
-    echo $_SESSION["uName"];
-    echo "<br>";
-    var_dump($_SESSION);
+// if the username and session username don't exist, go to login
+if (empty($checkName1) && !isset($_SESSION["uName"])){
     header( "Location: login.php?m=name"); // go back to sign in if name is wrong
 }
-else {
-    if(password_verify($_SESSION["pass"],$pass[0])){
-        echo "<p>logged in</p>";
+
+// check if post doesn't exist, then use session's password
+if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
+    if(!password_verify($_SESSION["pass"],$pass[0])){
+        header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
     }
-    else{
+// if just the post password exists
+} elseif (isset($_POST["password"])){
+    if(!password_verify($_POST["password"],$pass[0])){
         header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
     }
 }
+    
+
 if($checkName1 == ""){
   header( "Location: login.php?m=name");
 }
