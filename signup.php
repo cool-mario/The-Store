@@ -25,6 +25,7 @@
 </head>
 <body>
     <h1>Store Name</h1>
+    <br>
     <h2>Register your account</h2>
 
     <form method="post" action="store.php">
