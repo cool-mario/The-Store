@@ -49,7 +49,6 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
     <?php 
             
     // echo "<pre>";
-    var_dump($_SESSION);
     // echo "</pre>";
     $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     $sth = $dbh->prepare("SELECT * FROM items"); 
