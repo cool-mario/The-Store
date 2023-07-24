@@ -49,7 +49,7 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
     <?php 
             
     // echo "<pre>";
-    // var_dump($_SESSION["cart"]);
+    var_dump($_SESSION);
     // echo "</pre>";
     $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     $sth = $dbh->prepare("SELECT * FROM items"); 
@@ -68,14 +68,25 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
         echo "<td>$" . $x*(int)$amount . "</td>";
         echo "</tr>";
         $cost = $cost + $x*(int)$amount;
+
+        // add each cart item to the database so that it's saved
+        $sth = $dbh->prepare("INSERT INTO `cart` 
+                                (`user_id`, `item_id`)
+                            VALUES
+                                (:userID, :itemID)    
+                            ");
+        $sth->bindValue(":userID", $_SESSION["userID"]);
+        $sth->bindValue(":itemID", $itemID);
+        $sth->execute();
+
     }
     ?>
     </table>
     <?php
-    echo "<p>Your total cart total is $" . $cost .  "</p>";
+    echo "<p>Your total is $" . $cost .  "</p>";
     ?>
     <a href="store.php">Continue Shopping</a>
-    <br>
+    <br><br>
     <button id="paymentB">Continue Checkout</button>
     <div id="payment" class="hide">
         <form action="ordered.php" method="post">
