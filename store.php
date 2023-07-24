@@ -84,7 +84,12 @@ if(!isset($_SESSION["cart"])){
 }
 
 ?>
-
+<style>
+  img{
+    width:120px;
+    height:100px;
+}
+</style>
 <!DOCTYPE html>
 <html lang=en-us>
 <head>
@@ -136,6 +141,12 @@ if(!isset($_SESSION["cart"])){
         echo "<tr>";   
         foreach($items as $item){
           echo "<td>  " . $item["desc"] . "  </td>";
+        }
+        echo "</tr>";
+        // Images
+        echo "<tr>";   
+        foreach($items as $item){
+          echo "<td><img src='imgs/" . $item["img"] . "'></td>";
         }
         echo "</tr>";
         //   Item Price
@@ -199,3 +210,4 @@ if(!isset($_SESSION["cart"])){
 
   </body>
 </html>
+
