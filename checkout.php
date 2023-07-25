@@ -94,22 +94,22 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
         <div>
             <label for="ad">Enter your shipping address</label>
             <br>
-            <input id="ad" name="address" type="text"></input>
+            <input id="ad" name="address" type="text" required></input>
             <br>
             <label for="z">Enter your zip code</label>
             <br>
-            <input id="z" name="zip" type="text"></input>
+            <input id="z" name="zip" type="text" required></input>
         </div>
         <!-- C Card -->
         <p>Step 2</p>
         <div>
             <label for="cCard">Enter your credit card number</label>
             <br>
-            <input id="cCard" name="card" type="number"></input>
+            <input id="cCard" name="card" type="number" required></input>
             <br>
             <label for="cvcC">Enter your CVC</label>
             <br>
-            <input id="cvcC" name="cvc" type="number"></input>
+            <input id="cvcC" name="cvc" type="number" required></input>
         </div>
         <!-- Delivery -->
         <p>Step 3</p>
