@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once "config.php"; 
+if(!isset($_SESSION["uName"])){
+    header("Location: login.php");
+}
 // if the user is not logged in
 if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
     header( "Location: login.php?m=name");
