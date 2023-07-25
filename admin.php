@@ -2,6 +2,15 @@
 session_start();
 require_once "config.php"; 
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+$sth = $dbh->prepare("SELECT `role` FROM `users` WHERE uName = :enteredName");
+$sth->bindValue(":enteredName",$_SESSION["uName"]);
+$sth->execute();
+$admin = $sth->fetch();
+
+if($admin["0"] == 0){
+    header("Location: store.php");
+}
+
 ?>
 
 <!DOCTYPE html>
