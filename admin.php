@@ -70,3 +70,4 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
     echo "<h1>You goofed up, donm't mess with the form :3</h1>";
     } 
 ?>
+    <a href="signout.php"><button>Sign out</button></a>
