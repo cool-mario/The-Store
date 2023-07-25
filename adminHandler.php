@@ -36,9 +36,6 @@ if(isset($_POST["chosenItem"])){
         header("Location: admin.php?m=error");
     }
 }
-else{
-    header("Location: admin.php?m=error");
-}
 if(isset($_POST["chosenItem2"])){
     if(filter_var($_POST["chosenItem2"], FILTER_VALIDATE_INT) != false){
         if($_POST["chosenItem2"] > 0 and $_POST["chosenItem2"] < 6){
@@ -64,13 +61,5 @@ if(isset($_POST["chosenItem2"])){
         header("Location: admin.php?m=error");
     }
 }
-else{
-    header("Location: admin.php?m=error");
-}
-
-
-
-
-
 
 ?>
