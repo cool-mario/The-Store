@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="style.css">
+
+
 <?php
 // Initialize the session.
 // If you are using session_name("something"), don't forget it now!
@@ -20,5 +23,5 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 echo "<p>Signed out!</p>";
-echo '<a href="login.php">Sign in again</a>';
+echo '<a href="login.php">Go back to login</a>';
 ?>
