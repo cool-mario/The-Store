@@ -102,6 +102,12 @@ $sth->execute();
 $userID = $sth->fetch();
 $_SESSION["userID"] = $userID["id"];
 
+// delete the cart session if the user logged in again
+if (isset($_POST["inputName"]) && isset($_POST["inputPass"])){
+    $_SESSION["cart"] = array();
+}
+
+
 // if the user has items saved in cart database, add it into session
 $sth = $dbh->prepare("SELECT cart.item_id FROM `cart` 
                       JOIN `users` ON cart.user_id = users.id 
@@ -247,7 +253,7 @@ $items = $sth->fetchAll();
   <h1>Store Home Page</h1>
     <?php
     if(isset($_SESSION['uName'])){
-    echo "<h2>Welcome {$_SESSION['uName']}!!!</h2>";
+    echo "<h2>Welcome " . htmlspecialchars($_SESSION['uName']) . "!!!</h2>";
     }
     ?>
     <!-- List of products -->
@@ -306,9 +312,12 @@ $items = $sth->fetchAll();
     <br><br>
 
     <?php
-    if($admin["0"] == 1){
-        echo '<a href="admin.php"><button id="adminButton">Admin panel!</button></a><br><br>';
+    if (isset($admin["0"])){
+        if($admin["0"] == 1){
+            echo '<a href="admin.php"><button id="adminButton">Admin panel!</button></a><br><br>';
+        }
     }
+    
     ?>
     
     <a href="checkout.php"><button id="checkout">Check out!!</button></a>
