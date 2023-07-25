@@ -44,7 +44,7 @@ $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     <!-- Set a specific price on an item -->
     <label for="inp2">Set a price</label>
     <br>
-    <input id="inp2"  name="chosenPrice" type="number">
+    <input id="inp2"  name="chosenPrice" type="number" min="1">
     <br>
     <button type="submit">Change</button>
 </form>
