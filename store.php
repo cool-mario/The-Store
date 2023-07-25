@@ -201,6 +201,14 @@ if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
         width:120px;
     }
 
+    #adminButton {
+        font-size: 150%;
+        padding: 10px;
+        border-radius: 10px;
+        background-color:darkred;
+        color:lemonchiffon;
+    }
+
 </style>
 
 <?php
