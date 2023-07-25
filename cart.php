@@ -4,6 +4,9 @@ session_start();
 //     header("Location: signin.php"); // redirect to signin if not signed in
 //     die();
 // }
+if(!isset($_SESSION["uName"])){
+    header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
