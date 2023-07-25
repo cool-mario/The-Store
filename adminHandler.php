@@ -18,6 +18,7 @@ if(isset($_POST["chosenItem"])){
                     $sth->bindValue(':givenPrice',$_POST["chosenPrice"]);
                     $sth->bindValue(':givenID',$_POST["chosenItem"] );
                     $sth->execute(); 
+                    header("Location: admin.php?m=success");
                 }
                 else{
                     header("Location: admin.php?m=error");
@@ -49,6 +50,7 @@ if(isset($_POST["chosenItem2"])){
                     $sth->bindValue(':givenPrice',$_POST["chosenDesc"]);
                     $sth->bindValue(':givenID',$_POST["chosenItem2"] );
                     $sth->execute(); 
+                    header("Location: admin.php?m=success");
             }   
             else{
                 header("Location: admin.php?m=error");
