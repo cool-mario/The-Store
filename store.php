@@ -51,45 +51,44 @@ else{
     $sth->bindValue(":enteredName",$_SESSION["uName"]);
     $sth->execute();
     $admin = $sth->fetch();
-    if($admin["0"] == 1){
-        header( "Location: admin.php");
+    // if($admin["0"] == 1){
+    //     header( "Location: admin.php");
+    // }
+    // Password checking
+    $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
+    $sth->execute();
+    $pass = $sth->fetch();
+
+    // username checking
+    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+    $sth->bindValue(":enteredName",$_SESSION["uName"]);
+    $sth->execute();
+    $checkName1 = $sth->fetch();
+
+
+
+    // if the username and session username don't exist, go to login
+    if (empty($checkName1) && !isset($_SESSION["uName"])){
+        header( "Location: login.php?m=name"); // go back to sign in if name is wrong
     }
-    else{
-        // Password checking
-        $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
-        $sth->bindValue(":enteredName",$_SESSION["uName"]);
-        $sth->execute();
-        $pass = $sth->fetch();
 
-        // username checking
-        $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
-        $sth->bindValue(":enteredName",$_SESSION["uName"]);
-        $sth->execute();
-        $checkName1 = $sth->fetch();
-
-
-
-        // if the username and session username don't exist, go to login
-        if (empty($checkName1) && !isset($_SESSION["uName"])){
-            header( "Location: login.php?m=name"); // go back to sign in if name is wrong
+    // check if post doesn't exist, then use session's password
+    if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
+        if(!password_verify($_SESSION["pass"],$pass[0])){
+            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
         }
-
-        // check if post doesn't exist, then use session's password
-        if (!isset($_POST["password"]) && isset($_SESSION["pass"])){
-            if(!password_verify($_SESSION["pass"],$pass[0])){
-                header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
-            }
-            // if just the post password exists
-        } elseif (isset($_POST["password"])){
-            if(!password_verify($_POST["password"],$pass[0])){
-                header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
-            }
+        // if just the post password exists
+    } elseif (isset($_POST["password"])){
+        if(!password_verify($_POST["password"],$pass[0])){
+            header( "Location: login.php?m=pass"); // go back to sign in if password is wrong
         }
-            
-        if($checkName1 == ""){
-            header( "Location: login.php?m=name");
-        }
-  }
+    }
+        
+    if($checkName1 == ""){
+        header( "Location: login.php?m=name");
+    }
+  
 
 }
 
@@ -297,6 +296,13 @@ $items = $sth->fetchAll();
     </table>
 
     <br><br>
+
+    <?php
+    if($admin["0"] == 1){
+        echo '<a href="admin.php"><button id="adminButton">Admin panel!</button></a><br><br>';
+    }
+    ?>
+    
     <a href="checkout.php"><button id="checkout">Check out!!</button></a>
     <br><br>
     <a href="signout.php"><button>Sign out</button></a>
