@@ -3,10 +3,6 @@ session_start();
 require_once "config.php";
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
-
-
-
-
 ?>
 
 
@@ -44,11 +40,7 @@ if (isset($_SESSION["userID"])){
 } else {
     echo "an error occured...........";
 }
-
-
 ?>
-
-
 
 <br>
 <a href="store.php"><button>Click here to shop for more stuff</button></a>
@@ -57,7 +49,3 @@ if (isset($_SESSION["userID"])){
     
 </body>
 </html>
-
-
-
-
