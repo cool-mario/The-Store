@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once "config.php"; 
+if(!isset($_SESSION["uName"])){
+    header("Location: login.php");
+}
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 $sth = $dbh->prepare("SELECT `role` FROM `users` WHERE uName = :enteredName");
 $sth->bindValue(":enteredName",$_SESSION["uName"]);
