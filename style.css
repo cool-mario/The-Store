@@ -39,6 +39,11 @@ th:hover, td:hover {
     background-color: rgb(59, 100, 110);
 }
 
+button {
+    /* nice color that goes with the background*/
+    background-color:cadetblue; 
+}
+
 .hide {
     display: none;
 }
