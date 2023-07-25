@@ -3,6 +3,7 @@ session_start();
 require_once "config.php";
 $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
+
 // if the user registered
 if (isset($_POST["inputName"])){
     $_SESSION["uName"] = $_POST["inputName"];
@@ -50,7 +51,7 @@ else{
     $sth->bindValue(":enteredName",$_SESSION["uName"]);
     $sth->execute();
     $admin = $sth->fetch();
-    if($admin == 1){
+    if($admin["0"] == 1){
         header( "Location: admin.php");
     }
     else{
@@ -65,6 +66,8 @@ else{
         $sth->bindValue(":enteredName",$_SESSION["uName"]);
         $sth->execute();
         $checkName1 = $sth->fetch();
+
+
 
         // if the username and session username don't exist, go to login
         if (empty($checkName1) && !isset($_SESSION["uName"])){
