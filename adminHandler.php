@@ -20,23 +20,23 @@ if(isset($_POST["chosenItem"])){
                     $sth->execute(); 
                 }
                 else{
-                    header("Location: admin.php?m=error")
+                    header("Location: admin.php?m=error");
                 }
             }      
             else{
-                header("Location: admin.php?m=error")
+                header("Location: admin.php?m=error");
             }
         }
         else{
-            header("Location: admin.php?m=error")
+            header("Location: admin.php?m=error");
         }
     }
     else{
-        header("Location: admin.php?m=error")
+        header("Location: admin.php?m=error");
     }
 }
 else{
-    header("Location: admin.php?m=error")
+    header("Location: admin.php?m=error");
 }
 if(isset($_POST["chosenItem2"])){
     if(filter_var($_POST["chosenItem2"], FILTER_VALIDATE_INT) != false){
@@ -51,19 +51,19 @@ if(isset($_POST["chosenItem2"])){
                     $sth->execute(); 
             }   
             else{
-                header("Location: admin.php?m=error")
+                header("Location: admin.php?m=error");
             }
         }
         else{
-            header("Location: admin.php?m=error")
+            header("Location: admin.php?m=error");
         }
     }
     else{
-        header("Location: admin.php?m=error")
+        header("Location: admin.php?m=error");
     }
 }
 else{
-    header("Location: admin.php?m=error")
+    header("Location: admin.php?m=error");
 }
 
 
