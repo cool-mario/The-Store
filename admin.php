@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "config.php"; 
+// check login
 if(!isset($_SESSION["uName"])){
     header("Location: login.php");
 }
@@ -42,6 +43,7 @@ if($admin["0"] == 0){
     <!-- Select which item we change the price on -->
     <label for="inp1"><h3>Price Changing</h3></label>
     <br>
+    <!-- Choose item -->
     <select id="inp1" name="chosenItem">
         <?php
         $sth = $dbh->prepare("SELECT * FROM `items`");
@@ -61,6 +63,7 @@ if($admin["0"] == 0){
     <button type="submit">Change</button>
 </form>
 <?php
+// check for thrown errors from admin handler
 if (isset($_GET['m']) && $_GET['m'] == "error"){
     echo "<h1>You goofed up, donm't mess with the form :3</h1>";
     } 
@@ -107,7 +110,7 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
     <br>
     <button type="submit">Delete</button>
 </form>
-
+<!-- Display results of SQL for user -->
 <?php
 if (isset($_GET['m']) && $_GET['m'] == "error"){
     echo "<h1>You goofed up, donm't mess with the form :3</h1>";
@@ -126,4 +129,3 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
 
 </body>
 </html>
-
