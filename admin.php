@@ -68,7 +68,7 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
 <br>
 <!-- Description changing -->
 <form method="post" action="adminHandler.php">
-    <!-- Select which item we change the price on -->
+    <!-- Select which item we change the desc on -->
     <label for="inp1"><h3>Description Changing</h3></label>
     <br>
     <select id="inp1"  name="chosenItem2">
@@ -82,12 +82,30 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
         ?>
     </select>
     <br>
-    <!-- Set a specific price on an item -->
+    <!-- Set a specific desc on an item -->
     <label for="inp3">Set a description</label>
     <br>
     <input id="inp3" name="chosenDesc" type="text">
     <br>
     <button type="submit">Change</button>
+</form>
+<!-- Item Deletion -->
+<form method="post" action="adminHandler.php">
+    <!-- Select which item we delete -->
+    <label for="inp1"><h3>Item Deletion</h3></label>
+    <br>
+    <select id="inp1"  name="chosenItem3">
+        <?php
+        $sth = $dbh->prepare("SELECT * FROM `items`");
+        $sth->execute(); 
+        $itemsInfo = $sth->fetchAll();
+        foreach($itemsInfo as $item){
+            echo "<option value='". $item["id"] ."'>". $item["name"] ."</option>";
+        }
+        ?>
+    </select>
+    <br>
+    <button type="submit">Delete</button>
 </form>
 
 <?php
@@ -97,7 +115,7 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
     if (isset($_GET['m']) && $_GET['m'] == "success"){
         echo "<h2>Changes saved!! UwU</h2>";
     }
-}
+}   
 ?>
 
 <br><br>
@@ -108,3 +126,4 @@ if (isset($_GET['m']) && $_GET['m'] == "error"){
 
 </body>
 </html>
+
