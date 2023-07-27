@@ -204,6 +204,8 @@ if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
     .dropdown{
         /* goes to the right!! */
         float:right; 
+        /* make sure that the cart is always on top! */
+        z-index: 69420; 
     }
 
     img{
