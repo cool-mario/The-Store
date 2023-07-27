@@ -21,7 +21,7 @@
           font-size: 2vmin;
         }
     </style>
-    <title>Document</title>
+    <title>Create new account</title>
 </head>
 <body>
     <h1>Whimsy Wares!</h1>
@@ -41,14 +41,12 @@
     </form>
 
     <?php
-
     // print an error message if the user's username is taken already. store.php redirect back with the get info
     if (isset($_GET['m'])){
         if ($_GET['m'] == "taken" && isset($_GET['n'])){
-            echo "<br><br><strong class='error'>Sorry, the username " . htmlspecialchars($_GET['n']) . " is taken!!!!</strong><br>";
+            echo "<br><br><strong class='error'>Sorry, the username \"" . htmlspecialchars($_GET['n']) . "\" is taken!!!!</strong><br>";
         }
     }
-
     ?>
 
     <br>
