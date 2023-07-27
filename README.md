@@ -30,9 +30,11 @@ The github repository is used to keep track of versions.
 
 
 ### Database schema:
-<img src="https://github.com/cool-mario/The-Store/assets/50786617/df1b205d-ce21-429d-9d0d-2b0a3817b95e" alt="Database schema image" width="600">
+<img src="https://cdn.discordapp.com/attachments/1024408546386915329/1134019857076191242/image.png" alt="Database schema image" width="600">
 
 **items:** id, store_id, name, price, description, image
+
 **users:** id, username, role (customer/admin), hashed password  
+
 **cart:** id, user_id, item_id 
 
