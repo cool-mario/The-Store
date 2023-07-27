@@ -15,8 +15,6 @@ if (isset($_POST["inputName"])){
     $checkName = $sth->fetchAll();
     // echo $_SESSION["uName"];
     
-    echo "<p>" . var_dump($checkName) . "</p>";
-    echo "<br>";
     // if name does not exist, then create the new account
     if(!isset($checkName[0]["uName"])){
         // Add this new user to the database
