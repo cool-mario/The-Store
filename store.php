@@ -24,7 +24,6 @@ if (isset($_POST["inputName"])){
         $sth->bindValue(":roleBool",0);
         $sth->bindValue(":pass",$_SESSION["pass"]);
         $sth->execute();
-        echo "<p>Added to user list</p>";
     // if the username exists, don't make account
     } else {
         header("Location: signup.php?m=taken&n=" . htmlspecialchars($checkName[0]["uName"]));
