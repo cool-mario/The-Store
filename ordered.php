@@ -5,6 +5,21 @@ $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 if(!isset($_SESSION["uName"])){
     header("Location: login.php");
 }
+
+
+// backend validation for the checkout information
+// get data from post request
+$address = $_POST["address"] ?? null;
+$zip = $_POST["zip"] ?? null;
+$card = $_POST["card"] ?? null;
+$cvc = $_POST["cvc"] ?? null;
+
+// check if the user info given are actually ints
+if (filter_var($zip, FILTER_VALIDATE_INT) === false || filter_var($card, FILTER_VALIDATE_INT) === false || filter_var($cvc, FILTER_VALIDATE_INT) === false){
+    header("Location: checkout.php?m=error");
+    die(); // quit
+}
+
 ?>
 
 
@@ -20,7 +35,7 @@ if(!isset($_SESSION["uName"])){
         }
     </style>
 
-    <title>Document</title>
+    <title>Thanks for your purchase!!</title>
 </head>
 <body>
 
