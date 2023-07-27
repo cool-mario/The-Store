@@ -24,7 +24,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Store Name</h1>
+    <h1>Whimsy Wares!</h1>
     <br>
     <h2>Register your account</h2>
 
@@ -39,6 +39,18 @@
         <br>
         <input type="submit" value="register"></input>
     </form>
+
+    <?php
+
+    // print an error message if the user's username is taken already. store.php redirect back with the get info
+    if (isset($_GET['m'])){
+        if ($_GET['m'] == "taken" && isset($_GET['n'])){
+            echo "<br><br><strong class='error'>Sorry, the username " . htmlspecialchars($_GET['n']) . " is taken!!!!</strong><br>";
+        }
+    }
+
+    ?>
+
     <br>
     <a href="login.php">Already have an account? Login</a>
     
