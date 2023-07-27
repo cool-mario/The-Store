@@ -1,9 +1,6 @@
 <?php 
 session_start(); 
-// if (empty($_SESSION)){
-//     header("Location: signin.php"); // redirect to signin if not signed in
-//     die();
-// }
+// go to login if user is not signed in
 if(!isset($_SESSION["uName"])){
     header("Location: login.php");
 }
@@ -35,7 +32,16 @@ if (isset($_POST["buy"])){
         // increase amount of items 
         $_SESSION["cart"][$itemID]++;
     }
-    // header( "refresh:2; url=store.php"); // wait 2 seconds until going back to the page
+
+    // add the item to the database so that it's saved every time (note: this used to be in checkout.php)
+    $sth = $dbh->prepare("INSERT INTO `cart` 
+                              (`user_id`, `item_id`)
+                          VALUES
+                              (:userID, :itemID)    
+                        ");
+    $sth->bindValue(":userID", $_SESSION["userID"]);
+    $sth->bindValue(":itemID", $itemID);
+    $sth->execute();
 
     header( "Location: store.php"); // go back to store
 
