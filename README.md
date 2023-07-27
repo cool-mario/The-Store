@@ -30,11 +30,18 @@ The github repository is used to keep track of versions.
 
 
 ### Database schema:
-<img src="https://cdn.discordapp.com/attachments/1024408546386915329/1134019857076191242/image.png" alt="Database schema image" width="600">
+
+<img src="https://cdn.discordapp.com/attachments/1024408546386915329/1134020068527837214/image.png" alt="Database schema image" width="600">
 
 **items:** id, store_id, name, price, description, image
 
 **users:** id, username, role (customer/admin), hashed password  
 
 **cart:** id, user_id, item_id 
+
+### Data Flow Chart:
+<img src="https://cdn.discordapp.com/attachments/1024408546386915329/1134019857076191242/image.png" alt="Data flow" width="600">
+
+
+
 
