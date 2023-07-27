@@ -5,7 +5,7 @@ The github repository is used to keep track of versions.
 
 Creators: Aditya Chandra, Aidan Chan
 
-## Guide
+## File Guide
 `admin.php` - the admin control panel. Lets admin manipulate store items like changing table values
 
 `adminHandler.php` - takes inputs from admin.php and runs SQL to update tables
