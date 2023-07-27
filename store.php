@@ -217,6 +217,11 @@ if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
         background-color:darkred;
         color:lemonchiffon;
     }
+    /* center that title! */
+    #header {
+        position: relative;
+        left: 2%;
+    }
 
 </style>
 
@@ -252,7 +257,7 @@ $items = $sth->fetchAll();
 
 
   <!-- End of Cart -->
-  <h1>Whimsy Wares!!</h1>
+  <h1 id="header">Whimsy Wares!!</h1>
     <?php
     if(isset($_SESSION['uName'])){
     echo "<h2>Welcome " . htmlspecialchars($_SESSION['uName']) . "!!!</h2>";
