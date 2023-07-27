@@ -119,7 +119,7 @@ $sth = $dbh->prepare("SELECT cart.item_id FROM `cart`
                     "); // get all items own by user. this took me way tooo long
 $sth->bindValue(":userID",$_SESSION["userID"]);
 $sth->execute();
-$cartItemID = $sth->fetchAll(); // i spent 30 minutes being confused and then i realize It was fetch() and not fetchAll()
+$cartItemID = $sth->fetchAll(); // fetch all the items owned by the user
 
 
 // create cart if it doesn't exist
@@ -134,7 +134,7 @@ if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
             // create NEW item in cart
             $_SESSION["cart"][$itemID] = 1;
         } else {
-            // increase amount of items 
+            // increase amount of that specific item
             $_SESSION["cart"][$itemID]++;
         }
     }
@@ -147,7 +147,7 @@ if(!isset($_SESSION["cart"]) || empty($_SESSION["cart"])){
 <!DOCTYPE html>
 <html lang=en-us>
 <head>
-    <title>  Store Page  </title>
+    <title>  the Whimsy Ware store  </title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <!-- this makes it work on different screen sizes like a phone -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -228,32 +228,31 @@ $items = $sth->fetchAll();
 
 </head>
   <body>
-      <!-- Start of Cart -->
+      <!-- Start of Cart (it shows up when you hover over the button) -->
     <div class="dropdown">
     <button class="dropbtn">Cart</button>
-    <div class="dropdown-content">
-    <?php
+        <div class="dropdown-content">
+        <?php
 
-        
-    // echo "<pre>";
-    // var_dump($_SESSION["cart"]);
-    // echo "</pre>";
 
-    echo "<table>";
-    echo "<tr><th>Item</th><th>Amount</th></tr>";
-    foreach ($_SESSION["cart"] as $itemID => $amount){
-        echo "<tr>";
-        // get the name of the item from the id. it just works....
-        echo "<td>{$items[$itemID-1]['name']}</td>";
-        echo "<td>{$amount}</td>";
-        echo "</tr>";
-    }  
-    echo "</table>";
-    ?>
+        echo "<table>";
+        echo "<tr><th>Item</th><th>Quantity</th></tr>";
+        // session[cart] contains the item id and the amount of that item
+        foreach ($_SESSION["cart"] as $itemID => $amount){
+            echo "<tr>";
+            // get the name of the item from the id.
+            echo "<td>{$items[$itemID-1]['name']}</td>";
+            echo "<td>{$amount}</td>";
+            echo "</tr>";
+        }  
+        echo "</table>";
+        ?>
+        </div>
     </div>
-    </div>
+
+
   <!-- End of Cart -->
-  <h1>Store Home Page</h1>
+  <h1>Whimsy Wares!!</h1>
     <?php
     if(isset($_SESSION['uName'])){
     echo "<h2>Welcome " . htmlspecialchars($_SESSION['uName']) . "!!!</h2>";
@@ -286,7 +285,7 @@ $items = $sth->fetchAll();
         //   Item Price
         echo "<tr>";   
         foreach($items as $item){
-          echo "<td>  " . $item["price"] . "$  </td>";
+          echo "<td>  $" . $item["price"] . "  </td>";
         }
         echo "</tr>";
         //   Button to add to cart
@@ -306,7 +305,7 @@ $items = $sth->fetchAll();
         
       }
       catch (PDOException $e) {
-          echo "<p>Error connecting to database!</p>";
+          echo "<p>Error connecting to database! try reloading!</p>";
           echo $e->getMessage();
       }
     ?>
@@ -315,6 +314,7 @@ $items = $sth->fetchAll();
     <br><br>
 
     <?php
+    // create admin panel button if the user is an admin
     if (isset($admin["0"])){
         if($admin["0"] == 1){
             echo '<a href="admin.php"><button id="adminButton">Admin panel!</button></a><br><br>';
@@ -322,7 +322,7 @@ $items = $sth->fetchAll();
     }
     
     ?>
-    
+    <!-- checkout and signout buttons -->
     <a href="checkout.php"><button id="checkout">Check out!!</button></a>
     <br><br>
     <a href="signout.php"><button>Sign out</button></a>
