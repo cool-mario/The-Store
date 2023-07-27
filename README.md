@@ -3,6 +3,8 @@
 This is project 2 for the Advanced Web Development class!
 The github repository is used to keep track of versions.
 
+Creators: Aditya Chandra, Aidan Chan
+
 ## Guide
 `admin.php` - the admin control panel. Lets admin manipulate store items like changing table values
 
