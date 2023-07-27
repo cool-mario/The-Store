@@ -71,15 +71,15 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
         echo "</tr>";
         $cost = $cost + $x*(int)$amount;
 
-        // add each cart item to the database so that it's saved
-        $sth = $dbh->prepare("INSERT INTO `cart` 
-                                (`user_id`, `item_id`)
-                            VALUES
-                                (:userID, :itemID)    
-                            ");
-        $sth->bindValue(":userID", $_SESSION["userID"]);
-        $sth->bindValue(":itemID", $itemID);
-        $sth->execute();
+        // // add each cart item to the database so that it's saved
+        // $sth = $dbh->prepare("INSERT INTO `cart` 
+        //                         (`user_id`, `item_id`)
+        //                     VALUES
+        //                         (:userID, :itemID)    
+        //                     ");
+        // $sth->bindValue(":userID", $_SESSION["userID"]);
+        // $sth->bindValue(":itemID", $itemID);
+        // $sth->execute();
 
     }
     ?>
