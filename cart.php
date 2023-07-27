@@ -19,8 +19,8 @@ $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 <?php
 
 
-var_dump($_POST);
-var_dump($_SESSION["cart"]);
+// var_dump($_POST);
+// var_dump($_SESSION["cart"]);
 
 if (isset($_POST["buy"])){
 
