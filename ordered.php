@@ -74,7 +74,9 @@ if (isset($_SESSION["userID"])){
 }
 ?>
 
-<br>
+<img src="https://c4.wallpaperflare.com/wallpaper/137/602/354/video-game-minecraft-mojang-steve-minecraft-wallpaper-preview.jpg" width="400" alt="">
+
+<br><br>
 <a href="store.php"><button>Click here to shop for more stuff</button></a>
 <br><br>
 <a href="signout.php"><button>Click here to Log Out</button></a>
