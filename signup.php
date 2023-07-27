@@ -15,7 +15,7 @@
             line-height: 2;
             margin-left: auto;
             margin-right: auto;
-            width: 20vmax;
+            width: 20vw;
         }
         form > label, form > input, form > p {
           font-size: 2vmin;
