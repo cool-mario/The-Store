@@ -9,14 +9,16 @@ if (isset($_POST["inputName"])){
     $_SESSION["uName"] = $_POST["inputName"];
     $_SESSION["pass"] = password_hash($_POST["inputPass"], PASSWORD_DEFAULT);
 
-    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE uName = :enteredName");
+    $sth = $dbh->prepare("SELECT uName FROM `users` WHERE users.uName = :enteredName");
     $sth->bindValue(":enteredName",$_SESSION["uName"]);
     $sth->execute();
-    $checkName = $sth->fetch();
-    echo $_SESSION["uName"];
+    $checkName = $sth->fetchAll();
+    // echo $_SESSION["uName"];
+    
+    echo "<p>" . var_dump($checkName) . "</p>";
     echo "<br>";
-    // if name does not exist
-    if($checkName == ""){
+    // if name does not exist, then create the new account
+    if(!isset($checkName[0]["uName"])){
         // Add this new user to the database
         $sth = $dbh->prepare("INSERT INTO `users` (`uName`,`role`,`hashpass`)  VALUES( :user, :roleBool, :pass)");
 
@@ -25,6 +27,9 @@ if (isset($_POST["inputName"])){
         $sth->bindValue(":pass",$_SESSION["pass"]);
         $sth->execute();
         echo "<p>Added to user list</p>";
+    // if the username exists, don't make account
+    } else {
+        header("Location: signup.php?m=taken&n=" . htmlspecialchars($checkName[0]["uName"]));
     }
 
     // save user registering post into in session if it exists
@@ -51,9 +56,7 @@ else{
     $sth->bindValue(":enteredName",$_SESSION["uName"]);
     $sth->execute();
     $admin = $sth->fetch();
-    // if($admin["0"] == 1){
-    //     header( "Location: admin.php");
-    // }
+
     // Password checking
     $sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
     $sth->bindValue(":enteredName",$_SESSION["uName"]);
