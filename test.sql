@@ -28,7 +28,7 @@ VALUES
     (1, 'Mangoes', 5, 'A very tasty mango!','mango.png'),
     (1, 'Scaramouche', 65, 'Fandango','scaramouche.png'),
     (1, 'Warheads', 5, 'Not for recreational use','warhead.png'), 
-    (1, 'Muffin Stumps', 5, 'Not for consumption','apple2.png');
+    (1, 'Muffin Stumps', 5, 'Not for consumption','stump.png');
 
 -- users
 CREATE TABLE IF NOT EXISTS `users` (
