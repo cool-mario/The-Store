@@ -58,7 +58,7 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
     $sth->execute();
     $items = $sth->fetchAll(); 
 
-
+    // loop through all the items in the cart and count the total cost
     $cost = 0;
     echo "<tr><th> Item</th><th> Amount</th><th> Price</th></tr>";
     foreach($_SESSION["cart"] as $itemID => $amount){
@@ -86,6 +86,14 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
     </table>
     <?php
     echo "<p>Your total is $" . $cost .  "</p>";
+
+    // print an error message if the user's username is taken already. store.php redirect back with the get info
+    if (isset($_GET['m'])){
+        if ($_GET['m'] == "error"){
+            echo "<br><strong class='error'>Bro you filled in something wrong!!!!!</strong><br><br>";
+        }
+    }
+        
     ?>
     <a href="store.php">Continue Shopping</a>
     <br><br>
@@ -110,7 +118,7 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
             <br>
             <input id="cCard" name="card" type="number" required></input>
             <br>
-            <label for="cvcC">Enter your CVC</label>
+            <label for="cvcC">Enter your Card Verification Code</label>
             <br>
             <input id="cvcC" name="cvc" type="number" required></input>
         </div>
@@ -126,6 +134,16 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
             <button type="submit">Purchase</button>
         </div>
         <br>
+        </form>
+
+        <?php
+        // print an error message if the user's username is taken already. store.php redirect back with the get info
+        if (isset($_GET['m'])){
+            if ($_GET['m'] == "error"){
+                echo "<br><br><strong class='error'>Bro you filled in something wrong!!!!!</strong><br>";
+            }
+        }
+        ?>
 
 </body>
 </html>
