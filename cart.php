@@ -4,6 +4,8 @@ session_start();
 if(!isset($_SESSION["uName"])){
     header("Location: login.php");
 }
+require_once "config.php";
+$dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 ?>
 <!DOCTYPE html>
 <html lang="en">
