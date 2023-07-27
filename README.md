@@ -24,11 +24,9 @@ The github repository is used to keep track of versions.
 
 `signout.php` - destroys the session, lets user go log in again.
 
-signup.php - account creation page. Asks for username and password.
+`signup.php` - account creation page. Asks for username and password.
 
-store.php - the main store page. Allows users to add items to cart, check cart, go to checkout, and if they are an admin, go to the admin page.
-
-the rest are for other stuff
+`store.php` - the main store page. Allows users to add items to cart, check cart, go to checkout, and if they are an admin, go to the admin page.
 
 
 ### Database schema:
