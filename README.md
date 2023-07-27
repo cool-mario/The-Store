@@ -40,6 +40,7 @@ The github repository is used to keep track of versions.
 **cart:** id, user_id, item_id 
 
 ### Data Flow Chart:
+
 <img src="https://cdn.discordapp.com/attachments/1024408546386915329/1134019857076191242/image.png" alt="Data flow" width="600">
 
 
