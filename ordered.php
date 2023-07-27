@@ -15,10 +15,11 @@ $card = $_POST["card"] ?? null;
 $cvc = $_POST["cvc"] ?? null;
 
 // check if the user info given are actually ints
-if (filter_var($zip, FILTER_VALIDATE_INT) === false || filter_var($card, FILTER_VALIDATE_INT) === false || filter_var($cvc, FILTER_VALIDATE_INT) === false){
+if (filter_var($zip, FILTER_VALIDATE_INT) === false || filter_var($cvc, FILTER_VALIDATE_INT) === false || filter_var($card, FILTER_VALIDATE_INT) === false){
     header("Location: checkout.php?m=error");
     die(); // quit
 }
+
 
 ?>
 
@@ -41,11 +42,24 @@ if (filter_var($zip, FILTER_VALIDATE_INT) === false || filter_var($card, FILTER_
 
 <?php
 
+// check if the user is correctly signed in before purchase
+// Password checking
+$sth = $dbh->prepare("SELECT hashpass FROM `users` WHERE uName = :enteredName");
+$sth->bindValue(":enteredName",$_SESSION["uName"]);
+$sth->execute();
+$pass = $sth->fetch();
+// if password is wrong
+if(!password_verify($_SESSION["pass"],$pass[0])){
+    header( "Location: login.php?m=pass"); // go back to sign in
+    die();
+}
+
+
+// delete all items owned by the user in the data
 if (isset($_SESSION["userID"])){
-    // delete all items owned by the user in the data
     $sth = $dbh->prepare("DELETE FROM cart 
-    WHERE cart.user_id = :userID
-    ");
+                          WHERE cart.user_id = :userID
+                        ");
     $sth->bindValue(":userID", $_SESSION["userID"]);
     $sth->execute();
 
@@ -55,7 +69,8 @@ if (isset($_SESSION["userID"])){
     echo "<h1>Thank you for your purchase!</h1>";
 
 } else {
-    echo "an error occured...........";
+    // if the userID somehow doesn't exist
+    header("Location: signin.php");
 }
 ?>
 
