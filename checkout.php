@@ -127,7 +127,7 @@ if (!isset($_SESSION["uName"]) || !isset($_SESSION["pass"])){
         <div>
             <label for="del">Special delivery instructions</label>
             <br>
-            <textarea id="del" name="card"></textarea>
+            <textarea id="del" name="del"></textarea>
         </div>
 
         <div>
